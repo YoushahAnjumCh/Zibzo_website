@@ -1,8 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { ProductsModel } from "../../homepage/model/ProductModel";
 import { CartModel } from "../model/CartModel";
-
-const API_URL = "http://localhost:4000/cart/";
+import ApiService from "../../../../constant/Environment";
 
 export const addToCartDB = createAsyncThunk<
   {
@@ -11,8 +10,12 @@ export const addToCartDB = createAsyncThunk<
   { userID: string; productID: string },
   { rejectValue: string }
 >("fetchCart", async ({ userID, productID }, { rejectWithValue }) => {
+  const apiService = ApiService.getInstance();
+
+  // Example usage in an API call
+  const API_URL = apiService.getApiUrl();
   try {
-    const response = await fetch(API_URL, {
+    const response = await fetch(`${API_URL}/cart`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

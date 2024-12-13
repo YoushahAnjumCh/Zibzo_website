@@ -1,16 +1,12 @@
-// src/store/slices/userSlice.ts
-
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import axios from "axios";
+
 import {
   HomeBannerModel,
   OfferDealModel,
   ProductsModel,
 } from "../model/ProductModel";
-import { off } from "process";
-import { API_URL } from "../../../../constant/AppConstant";
+import ApiService from "../../../../constant/Environment";
 
-// Async thunk for fetching products and home banners with error handling
 export const fetchProductsAndBanners = createAsyncThunk<
   {
     products: ProductsModel[];
@@ -23,20 +19,21 @@ export const fetchProductsAndBanners = createAsyncThunk<
   { userID: string },
   { rejectValue: string }
 >("users/fetchProducts", async ({ userID }, { rejectWithValue }) => {
+  const apiService = ApiService.getInstance();
+
+  // Example usage in an API call
+  const API_URL = apiService.getApiUrl();
   console.log("API new " + API_URL);
   try {
-    const response = await fetch(
-      `${API_URL}?userID=${encodeURIComponent(userID)}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await fetch(`${API_URL}/products`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
     const data = await response.json();
-
+    console.log(data);
     if (response.ok) {
       // Map the data to your model classes
       const products = data.products.map(
@@ -79,7 +76,7 @@ export const fetchProductsAndBanners = createAsyncThunk<
         (banner: any) =>
           new HomeBannerModel(banner._id, banner.id, banner.image, banner.title)
       );
-      console.log(`offer ${offerdeal[0].image}`);
+
       return {
         products,
         homebanner,

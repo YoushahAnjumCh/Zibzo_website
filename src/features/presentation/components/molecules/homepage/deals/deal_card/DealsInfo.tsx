@@ -2,6 +2,7 @@ import React from "react";
 import TitleHeading from "../../../../atoms/title_headings/TitleHeading";
 import CustomImage from "../../../../atoms/image/CustomImage";
 import TitleParagraph from "../../../../atoms/title_headings/TitleParagraph";
+import ApiService from "../../../../../../../constant/Environment";
 
 type DealInfoProps = {
   logo?: string;
@@ -12,13 +13,17 @@ type DealInfoProps = {
 };
 
 export default function DealsInfo(props: DealInfoProps) {
+  const apiService = ApiService.getInstance();
+
+  // Example usage in an API call
+  const API_URL = apiService.getApiUrl();
   return (
     <div className="flex flex-col justify-center items-center py-4">
       {props.logo && (
         <div>
           {/* Product Logo */}
           <CustomImage
-            ImageSrc={`http://localhost:4000/${props.logo}`}
+            ImageSrc={`${API_URL}/${props.logo}`}
             alt={props.logoTitle}
             className="md:w-24 w-16"
           />

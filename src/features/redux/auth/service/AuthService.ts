@@ -1,21 +1,30 @@
+import ApiService from "../../../../constant/Environment";
 import { AuthModel } from "../model/auth.model";
-import { API_URL } from "../../../../constant/AppConstant";
 
 export class AuthService {
   static async login(email: string, password: string): Promise<AuthModel> {
-    const response = await fetch(`${API_URL}/auth/login`, {
-      method: "POST",
-      body: JSON.stringify({ email, password }),
-      headers: { "Content-Type": "application/json" },
-    });
+    const apiService = ApiService.getInstance();
 
-    const data = await response.json();
+    // Example usage in an API call
+    const API_URL = apiService.getApiUrl();
+    try {
+      const response = await fetch(`${API_URL}/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
 
-    if (!response.ok) {
-      throw new Error(data.msg || "An error occurred");
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.msg || "An error occurred");
+      }
+
+      return new AuthModel(data.email, data.userName, data.id, data.token);
+    } catch (error) {
+      console.error("Login failed:", error);
+      throw error;
     }
-
-    return new AuthModel(data.email, data.userName, data.id, data.token);
   }
 
   static async signup(
@@ -24,6 +33,10 @@ export class AuthService {
     userName: string,
     userImage: File | null
   ): Promise<string> {
+    const apiService = ApiService.getInstance();
+
+    // Example usage in an API call
+    const API_URL = apiService.getApiUrl();
     const formData = new FormData();
     formData.append("email", email);
     formData.append("password", password);
@@ -52,6 +65,10 @@ export class AuthService {
   }
   //Admin
   static async adminlogin(email: string, password: string): Promise<AuthModel> {
+    const apiService = ApiService.getInstance();
+
+    // Example usage in an API call
+    const API_URL = apiService.getApiUrl();
     const response = await fetch(`${API_URL}/auth/adminLogin`, {
       method: "POST",
       body: JSON.stringify({ email, password }),

@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { CartModel } from "../model/CartModel";
 import { ProductsModel } from "../../homepage/model/ProductModel";
-const API_URL = "http://localhost:4000/cart/";
+import ApiService from "../../../../constant/Environment";
 
 export const fetchCartItems = createAsyncThunk<
   {
@@ -12,9 +12,13 @@ export const fetchCartItems = createAsyncThunk<
   { userID: string },
   { rejectValue: string }
 >("fetchCart", async ({ userID }, { rejectWithValue }) => {
+  const apiService = ApiService.getInstance();
+
+  // Example usage in an API call
+  const API_URL = apiService.getApiUrl();
   try {
     const response = await fetch(
-      `${API_URL}?userID=${encodeURIComponent(userID)}`,
+      `${API_URL}/cart/?userID=${encodeURIComponent(userID)}`,
       {
         method: "GET",
         headers: {

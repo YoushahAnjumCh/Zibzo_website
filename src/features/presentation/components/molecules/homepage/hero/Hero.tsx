@@ -1,6 +1,7 @@
 import React from "react";
 import Macbook from "../../../../../../assets/category/gaming.png";
 import Slider from "react-slick";
+import ApiService from "../../../../../../constant/Environment";
 type Slide = {
   id: number;
   image: string;
@@ -11,6 +12,10 @@ type HeroProps = {
 };
 
 export default function Hero({ slides }: HeroProps) {
+  const apiService = ApiService.getInstance();
+
+  // Example usage in an API call
+  const API_URL = apiService.getApiUrl();
   const settings = {
     infinite: slides.length > 1,
     speed: 500,
@@ -32,7 +37,7 @@ export default function Hero({ slides }: HeroProps) {
         <div key={slide.id} className="flex flex-row">
           <div className="w-full">
             <img
-              src={`http://localhost:4000/${slide.image}`}
+              src={`${API_URL}/${slide.image}`}
               alt=""
               className="w-full h-[200px] md:h-[510px] cursor-pointer object-cover"
             />

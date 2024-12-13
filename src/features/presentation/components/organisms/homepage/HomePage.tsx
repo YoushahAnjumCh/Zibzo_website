@@ -34,6 +34,7 @@ import { AppDispatch, AppState } from "../../../../redux/store";
 import { fetchProductsAndBanners } from "../../../../redux/homepage/slice/HomePageSlice";
 import { useAuthentication } from "../../../../../hooks/authContext";
 import { CartProvider, useCart } from "../../../../../hooks/cartContext";
+import Loading from "../../atoms/loading/loading";
 
 const Menu = [
   {
@@ -211,9 +212,9 @@ export default function HomePage() {
     loading,
     error,
   } = useSelector((state: AppState) => state.products);
-  console.log("Count" + offerdeal[0]);
-  const isFirstRender = useRef(true); // Track first render
 
+  const isFirstRender = useRef(true); // Track first render
+  console.log("Products" + products);
   console.log("ooo" + cartCount);
   if (cartCount > cartProductCount) {
     setCartCount(cartCount);
@@ -229,15 +230,13 @@ export default function HomePage() {
       })
     );
   }, [dispatch]);
-  console.log();
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading />;
 
   return (
     <>
       <div className="flex flex-col min-h-screen">
         <main className="flex-grow">
           <Navbar />
-          {/* <h2>{String(cartCount)}</h2> */}
           {homebanner && homebanner.length > 0 && (
             <Hero slides={homebanner} />
           )}{" "}

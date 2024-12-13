@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Provider } from "react-redux";
 import { NewProduct } from "../features/presentation/backend/productupload/NewProduct";
 

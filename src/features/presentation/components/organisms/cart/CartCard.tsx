@@ -4,6 +4,7 @@ import TitleHeading from "../../atoms/title_headings/TitleHeading";
 import TitleParagraph from "../../atoms/title_headings/TitleParagraph";
 import { FaDeleteLeft } from "react-icons/fa6";
 import { FaTrash } from "react-icons/fa";
+import ApiService from "../../../../../constant/Environment";
 type CardCardProps = {
   title: string;
   subtitle: string;
@@ -15,6 +16,10 @@ type CardCardProps = {
   onClick?: (id: string) => void;
 };
 export default function CartCard(props: CardCardProps) {
+  const apiService = ApiService.getInstance();
+
+  // Example usage in an API call
+  const API_URL = apiService.getApiUrl();
   const handleClick = () => {
     if (props.onClick) {
       props.onClick(props.id); // Call the onClick function passed from parent with the product id
@@ -23,7 +28,7 @@ export default function CartCard(props: CardCardProps) {
   return (
     <div className="flex">
       <CustomImage
-        ImageSrc={`http://localhost:4000/${props.image[0]}`}
+        ImageSrc={`${API_URL}/${props.image[0]}`}
         alt={props.title}
         className="md:h-[180px] h-[110px] md:w-[180px] w-[100px] object-cover rounded-md"
       />

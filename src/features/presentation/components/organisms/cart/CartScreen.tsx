@@ -13,6 +13,7 @@ import { unwrapResult } from "@reduxjs/toolkit";
 import { deleteCartItems } from "../../../../redux/cart/slice/deleteCartSlice";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import Loading from "../../atoms/loading/loading";
 export default function CartScreen() {
   const dispatch: AppDispatch = useDispatch();
   const { authData } = useAuthentication();
@@ -62,15 +63,7 @@ export default function CartScreen() {
       0
     );
   }
-  if (loading) {
-    return (
-      <div className="relative">
-        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black bg-opacity-10">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-gray-800"></div>
-        </div>
-      </div>
-    );
-  }
+  if (loading) return <Loading />;
 
   if (error) {
     return <div>Error: {error}</div>;

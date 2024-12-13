@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 
 import { useState } from "react";
 import Header from "../header/header";
+import ApiService from "../../../../constant/Environment";
 
 type ProductInput = {
   ProductTitle: string;
@@ -13,6 +14,10 @@ type ProductInput = {
 };
 
 export const UploadDealoftheDay: React.FC = () => {
+  const apiService = ApiService.getInstance();
+
+  // Example usage in an API call
+  const API_URL = apiService.getApiUrl();
   const [fileImage, setImageFile] = useState<File | null>(null);
   const [fileLogo, setLogoFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
@@ -38,7 +43,7 @@ export const UploadDealoftheDay: React.FC = () => {
     formData.append("dealofthedayimage", fileImage);
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:4000/upload/dealday/", {
+      const response = await fetch(`${API_URL}/upload/dealday/`, {
         method: "POST",
         body: formData,
       });

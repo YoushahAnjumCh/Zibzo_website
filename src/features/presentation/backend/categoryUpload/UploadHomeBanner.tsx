@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 
 import { useState } from "react";
 import Header from "../header/header";
+import ApiService from "../../../../constant/Environment";
 
 type ProductInput = {
   ProductTitle: string;
@@ -11,6 +12,10 @@ type ProductInput = {
 };
 
 export const UploadHomeBanner: React.FC = () => {
+  const apiService = ApiService.getInstance();
+
+  // Example usage in an API call
+  const API_URL = apiService.getApiUrl();
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -33,7 +38,7 @@ export const UploadHomeBanner: React.FC = () => {
     formData.append("homebanner", file);
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:4000/upload/homebanner/", {
+      const response = await fetch(`${API_URL}/upload/homebanner/`, {
         method: "POST",
         body: formData,
       });

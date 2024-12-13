@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { AppState } from "../../../redux/store";
 import Header from "../header/header";
+import ApiService from "../../../../constant/Environment";
 
 type ProductInput = {
   ProductTitle: string;
@@ -20,7 +21,10 @@ type ProductInput = {
 export const NewProduct: React.FC = () => {
   let products = useSelector((store: AppState) => store.products);
   let auth = useSelector((store: AppState) => store.auth);
+  const apiService = ApiService.getInstance();
 
+  // Example usage in an API call
+  const API_URL = apiService.getApiUrl();
   const [files, setFiles] = useState<File[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -52,15 +56,18 @@ export const NewProduct: React.FC = () => {
     });
     setLoading(true);
     try {
-      console.log(formData);
-      const response = await fetch("http://localhost:4000/upload/", {
+      const response = await fetch(`${API_URL}/upload/`, {
         method: "POST",
+
         body: formData,
       });
       const result = await response.json();
+      // Check if response is OK
+
+      console.log("LOG" + result);
       if (result && result._id) {
         console.log("Product uploaded successfully with _id:", result._id);
-        navigate("/homepage", { replace: true });
+        // navigate("/homepage", { replace: true });
       } else {
         console.error(
           "Failed to upload product. The result is empty or missing _id."
