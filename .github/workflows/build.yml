@@ -45,29 +45,20 @@ jobs:
           node-version: 20
 
       # Step 3: Deploy to Render
-      - name: Deploy to Render
+      - name: Trigger Deployment on Render
         env:
-          RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}
-          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+          deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }} # Render deploy URL secret
         run: |
-          curl -X POST \
-            -H "Authorization: Bearer $RENDER_API_KEY" \
-            -H "Content-Type: application/json" \
-            -d '{}' \
-            "https://api.render.com/v1/services/$RENDER_SERVICE_ID/deploys"
+          echo "Triggering deployment on Render"
 
-      # Step 4: Deployment Status
-      - name: Confirm Deployment Status
-        env:
-          RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}
-          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
-        run: |
-          STATUS=""
-          until [ "$STATUS" == "live" ]; do
-            STATUS=$(curl -s \
-              -H "Authorization: Bearer $RENDER_API_KEY" \
-              "https://api.render.com/v1/services/$RENDER_SERVICE_ID" | jq -r '.service.status')
-            echo "Current deployment status: $STATUS"
-            [ "$STATUS" == "live" ] || sleep 10
-          done
-          echo "Deployment is live!"
+          # Send a POST request to the Render deployment URL and capture the response
+          response=$(curl -s -w "%{http_code}" -o response_body.txt "$deploy_url")
+
+          # Check if the response code is 200 (OK)
+          if [[ "$response" == "200" ]]; then
+            echo "Deployment triggered successfully!"
+          else
+            echo "Failed to trigger deployment. Response code: $response"
+            echo "Response body: $(cat response_body.txt)"  # Output the response body for debugging purposes
+            exit 1  # Fail the job if the request was not successful
+          fi
