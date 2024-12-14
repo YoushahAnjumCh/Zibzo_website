@@ -20,8 +20,7 @@ export const fetchProductsAndBanners = createAsyncThunk<
   { rejectValue: string }
 >("users/fetchProducts", async ({ userID }, { rejectWithValue }) => {
   const apiService = ApiService.getInstance();
-
-  // Example usage in an API call
+console.log(apiService)
 
   try {
     const response = await fetch(apiService.getFullUrl("products"), {
