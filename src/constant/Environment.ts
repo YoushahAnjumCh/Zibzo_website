@@ -5,10 +5,11 @@ class ApiService {
   private constructor() {
     const isDevelopment = process.env.REACT_APP_NODE_ENV === "development";
     const localBaseUrl =
-      process.env.REACT_APP_LOCAL_BASE_URL || "https://api.zibzo.youshah.com";
-    const serverBaseUrl = process.env.REACT_APP_SERVER_BASE_URL || "";
+      process.env.REACT_APP_LOCAL_BASE_URL || "http://localhost:4000";
+    const serverBaseUrl =
+      process.env.REACT_APP_SERVER_BASE_URL || "https://api.zibzo.youshah.com";
 
-    this.apiUrl = "https://api.zibzo.youshah.com";
+    this.apiUrl = isDevelopment ? localBaseUrl : serverBaseUrl;
 
     if (!this.apiUrl) {
       throw new Error(
