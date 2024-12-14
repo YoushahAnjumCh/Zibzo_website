@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter,HashRouter, Route, Routes } from "react-router-dom";
 import { Provider } from "react-redux";
 import { NewProduct } from "../features/presentation/backend/productupload/NewProduct";
 
@@ -30,7 +30,7 @@ function App() {
         <Toaster position="top-center" reverseOrder={false} />
 
         <Provider store={store}>
-          <BrowserRouter>
+          <HashRouter>
             <Routes>
               <Route path="/signup" element={<SignUpView />}></Route>
               <Route path="/" element={<SignInView />}></Route>
@@ -103,7 +103,7 @@ function App() {
 
               <Route path="/adminlogin" element={<AdminLogin />}></Route>
             </Routes>
-          </BrowserRouter>
+          </HashRouter>
         </Provider>
       </AdminAuthProvider>
     </AuthProvider>
