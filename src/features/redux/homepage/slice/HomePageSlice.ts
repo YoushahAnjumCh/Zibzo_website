@@ -22,10 +22,9 @@ export const fetchProductsAndBanners = createAsyncThunk<
   const apiService = ApiService.getInstance();
 
   // Example usage in an API call
-  const API_URL = apiService.getApiUrl();
-  console.log("API new " + API_URL);
+
   try {
-    const response = await fetch(`${API_URL}/products`, {
+    const response = await fetch(apiService.getFullUrl("products"), {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
