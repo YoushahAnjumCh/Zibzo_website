@@ -36,19 +36,35 @@ export const UploadHomeBanner: React.FC = () => {
     const formData = new FormData();
     formData.append("title", data.ProductTitle);
     formData.append("homebanner", file);
+
     setLoading(true);
     try {
+      if (!file) {
+        console.error("Please upload an image file.");
+        return;
+      }
+      if (!data.ProductTitle) {
+        console.error("Title is required.");
+        return;
+      }
       const response = await fetch(`${API_URL}/upload/homebanner/`, {
         method: "POST",
         body: formData,
       });
-      const result = await response.json();
-      if (result && result._id) {
-        navigate("/homepage", { replace: true });
-      } else {
-        console.error(
-          "Failed to upload product. The result is empty or missing _id."
-        );
+      if (!response.ok) {
+        const errorText = await response.text(); // Log full server response
+        console.error("Error:", errorText);
+      }
+      if (response.ok) {
+        const result = await response.json();
+        if (result && result._id) {
+          console.log(result);
+          navigate("/homepage", { replace: true });
+        } else {
+          console.error(
+            "Failed to upload product. The result is empty or missing _id."
+          );
+        }
       }
     } catch (error) {
       console.error("Error uploading product:", error);

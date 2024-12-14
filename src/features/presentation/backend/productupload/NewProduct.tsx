@@ -56,7 +56,6 @@ export const NewProduct: React.FC = () => {
     try {
       const response = await fetch(`${API_URL}/upload/`, {
         method: "POST",
-
         body: formData,
       });
       const result = await response.json();
