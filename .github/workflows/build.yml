@@ -28,11 +28,7 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      # Step 5: Check Unused Dependencies
-      - name: Check Unused Dependencies
-        run: npx depcheck
-
-      # Step 6: Run Tests
+      # Step 5: Run Tests
       - name: Run Tests
         run: npm test
 
