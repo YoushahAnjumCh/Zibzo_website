@@ -53,10 +53,8 @@ export default function AdminLogin() {
           };
           try {
             const resultAction = await dispatch(adminAuthSignIn(signInParams));
-            console.log(resultAction);
+
             const authData = unwrapResult(resultAction);
-            console.log("Token:", authData.token);
-            console.log(authData);
             if (authData.token) {
               handleShowDiv("Success", "text-green-600");
               adminSetAuthData(authData);
@@ -64,7 +62,6 @@ export default function AdminLogin() {
               navigate(location.state?.from || "/upload", { replace: true });
             }
           } catch (error: any) {
-            console.log(error);
             handleShowDiv(error.toString(), "text-red-600");
             setShowDiv(true);
           }

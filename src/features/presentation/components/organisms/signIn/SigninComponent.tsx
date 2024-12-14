@@ -56,9 +56,8 @@ export default function SigninComponent() {
           };
           try {
             const resultAction = await dispatch(authSignIn(signInParams));
-            console.log(resultAction);
+
             const authData = unwrapResult(resultAction);
-            console.log("Token:", authData.token);
             authData.isUserAuthenticated = true;
 
             if (authData.token) {

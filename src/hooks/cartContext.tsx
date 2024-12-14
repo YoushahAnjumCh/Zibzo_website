@@ -14,17 +14,12 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  console.log("CartProvider rendered");
-
-  // Initialize `cartCount` from localStorage or default to 0
   const [cartCount, setCartCount] = useState<number>(() => {
     const storedCartCount = localStorage.getItem("cartCount");
     return storedCartCount ? parseInt(storedCartCount, 10) : 0;
   });
 
-  // Update localStorage whenever `cartCount` changes
   useEffect(() => {
-    // Only update localStorage if the cartCount has changed
     const storedCartCount = localStorage.getItem("cartCount");
     if (storedCartCount !== String(cartCount)) {
       localStorage.setItem("cartCount", String(cartCount));

@@ -37,11 +37,10 @@ export default function CartScreen() {
       const resultAction = await dispatch(
         deleteCartItems({ userID: String(authData?.id), productID: id }) // Your delete action
       );
-      console.log(resultAction);
+
       const response = unwrapResult(resultAction);
       console.dir("RESPONSE" + response);
       toast.success("Cart item deleted!");
-      console.log(response.cartProductCount);
       if (response.cart && response.cart.cartProductCount !== undefined) {
         setCartCount(response.cart.cartProductCount); // Update cart count
       } else {

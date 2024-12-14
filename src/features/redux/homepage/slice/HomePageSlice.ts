@@ -20,8 +20,6 @@ export const fetchProductsAndBanners = createAsyncThunk<
   { rejectValue: string }
 >("users/fetchProducts", async ({ userID }, { rejectWithValue }) => {
   const apiService = ApiService.getInstance();
-console.log(apiService)
-
   try {
     const response = await fetch(apiService.getFullUrl("products"), {
       method: "GET",
@@ -31,9 +29,7 @@ console.log(apiService)
     });
 
     const data = await response.json();
-    console.log(data);
     if (response.ok) {
-      // Map the data to your model classes
       const products = data.products.map(
         (product: any) =>
           new ProductsModel(
@@ -47,7 +43,7 @@ console.log(apiService)
           )
       );
       const cartProductCount = data.cartProductCount;
-      console.log(products);
+
       const homebanner = data.homebanner.map(
         (banner: any) =>
           new HomeBannerModel(banner._id, banner.id, banner.image, banner.title)

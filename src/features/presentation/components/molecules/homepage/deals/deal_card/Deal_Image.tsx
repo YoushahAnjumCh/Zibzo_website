@@ -10,9 +10,8 @@ type DealImageProps = {
 export default function Deal_Image(props: DealImageProps) {
   const apiService = ApiService.getInstance();
 
-  // Example usage in an API call
   const API_URL = apiService.getApiUrl();
-  console.log(`ccc ${props.image}`);
+
   return (
     <>
       <CustomImage

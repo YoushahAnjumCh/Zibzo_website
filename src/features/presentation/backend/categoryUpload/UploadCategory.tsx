@@ -43,7 +43,6 @@ export const UploadCategory: React.FC = () => {
       });
       const result = await response.json();
       if (result && result._id) {
-        console.log("Product uploaded successfully with _id:", result._id);
         navigate("/homepage", { replace: true });
       } else {
         console.error(

@@ -37,9 +37,7 @@ export const NewProduct: React.FC = () => {
   } = useForm<ProductInput>({ mode: "onChange" });
 
   const onSubmit = async (data: ProductInput) => {
-    console.log(files);
     if (files.length === 0) {
-      console.error("Please upload at least one image file.");
       return;
     }
 
@@ -64,10 +62,8 @@ export const NewProduct: React.FC = () => {
       const result = await response.json();
       // Check if response is OK
 
-      console.log("LOG" + result);
       if (result && result._id) {
-        console.log("Product uploaded successfully with _id:", result._id);
-        // navigate("/homepage", { replace: true });
+        navigate("/homepage", { replace: true });
       } else {
         console.error(
           "Failed to upload product. The result is empty or missing _id."
@@ -81,7 +77,6 @@ export const NewProduct: React.FC = () => {
   };
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      console.log(e.target.files);
       setFiles(Array.from(e.target.files));
     }
   };
