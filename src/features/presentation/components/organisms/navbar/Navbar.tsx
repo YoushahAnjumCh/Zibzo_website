@@ -46,7 +46,7 @@ export default function Navbar() {
             {MenuLinks.map((menu) => (
               <li
                 key={menu.id}
-                className="hover:text-gray-400 duration-200"
+                className="hover:text-gray-400 duration-200 cursor-pointer"
                 onClick={() => navigate(menu.link)}
               >
                 {menu.name}
