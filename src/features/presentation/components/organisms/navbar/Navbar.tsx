@@ -44,8 +44,12 @@ export default function Navbar() {
         <div className="hidden md:flex justify-center text-center gap-4">
           <ul className="flex gap-3">
             {MenuLinks.map((menu) => (
-              <li key={menu.id} className="hover:text-gray-400 duration-200">
-                <Link to={menu.link}> {menu.name} </Link>
+              <li
+                key={menu.id}
+                className="hover:text-gray-400 duration-200"
+                onClick={() => navigate(menu.link)}
+              >
+                {menu.name}
               </li>
             ))}
           </ul>

@@ -16,8 +16,6 @@ class ApiService {
         "API URL is not configured. Check your environment variables."
       );
     }
-
-    console.log("API_URL initialized:", this.apiUrl);
   }
 
   // Singleton Pattern to ensure only one instance

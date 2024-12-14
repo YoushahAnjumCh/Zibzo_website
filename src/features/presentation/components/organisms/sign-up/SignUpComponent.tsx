@@ -61,7 +61,6 @@ export default function SignUpComponent() {
             try {
               const resultAction = await dispatch(authSignUp(signUpParams));
               const authData = unwrapResult(resultAction);
-              console.log("ID:", authData);
               handleShowDiv("Success", "text-green-600");
               setShowDiv(true);
             } catch (error: any) {
@@ -106,7 +105,7 @@ export default function SignUpComponent() {
               type="text"
               register={register}
               maxLength={10}
-              error={errors.Username} // Passing the specific field error
+              error={errors.Username}
             ></SignUpTextield>
 
             <SignUpTextield
