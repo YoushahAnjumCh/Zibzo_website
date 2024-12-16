@@ -27,6 +27,7 @@ export default function SigninComponent() {
   const dispatch: AppDispatch = useDispatch();
   const [errorMessage, setErrorMessage] = useState("");
   const [errorColor, setErrorColor] = useState("");
+  const [loading, setLoading] = useState(false);
   let location = useLocation();
   const { setAuthData } = useAuthentication();
   const [showDiv, setShowDiv] = useState(false);
@@ -54,6 +55,7 @@ export default function SigninComponent() {
             email: data.Email,
             password: data.Password,
           };
+          setLoading(true);
           try {
             const resultAction = await dispatch(authSignIn(signInParams));
 
@@ -69,6 +71,8 @@ export default function SigninComponent() {
           } catch (error: any) {
             handleShowDiv(error.toString(), "text-red-600");
             setShowDiv(true);
+          } finally {
+            setLoading(false);
           }
         })}
       >
@@ -120,8 +124,11 @@ export default function SigninComponent() {
             )}
             {/* Signup Button */}
             <CustomButton
-              className="container bg-black mt-8 text-white text-center rounded-md p-2"
-              text="Sign in"
+              className={`container bg-black mt-8 text-white text-center rounded-md p-2 ${
+                loading ? "cursor-not-allowed opacity-50" : ""
+              }`}
+              text={loading ? "Loading..." : "Sign in"}
+              tDisabled={loading}
             ></CustomButton>
           </div>
         </div>

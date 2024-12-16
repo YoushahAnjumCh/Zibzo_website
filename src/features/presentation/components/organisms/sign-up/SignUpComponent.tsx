@@ -15,6 +15,7 @@ import { useDispatch } from "react-redux";
 import { SignUpParams } from "../../../../redux/auth/model/AuthParams";
 import { authSignUp } from "../../../../redux/auth/slice/authSignUpSlice";
 import { AppDispatch } from "../../../../redux/store";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export type SignupInput = {
   FirstName: string;
@@ -30,8 +31,10 @@ export default function SignUpComponent() {
   const [errorMessage, setErrorMessage] = useState("");
   const [errorColor, setErrorColor] = useState("");
   const [showDiv, setShowDiv] = useState(false);
+  const [loading, setLoading] = useState(false);
+  let location = useLocation();
   const [file, setFile] = useState<File | null>(null);
-
+  const navigate = useNavigate();
   const handleShowDiv = (message: string, color: string) => {
     setErrorMessage(message);
     setErrorColor(color);
@@ -58,14 +61,18 @@ export default function SignUpComponent() {
               userName: data.Username,
               userImage: file,
             };
+            setLoading(true);
             try {
               const resultAction = await dispatch(authSignUp(signUpParams));
               const authData = unwrapResult(resultAction);
               handleShowDiv("Success", "text-green-600");
               setShowDiv(true);
+              navigate(location.state?.from || "/");
             } catch (error: any) {
               handleShowDiv(error.toString(), "text-red-600");
               setShowDiv(true);
+            } finally {
+              setLoading(false);
             }
           } else {
             handleShowDiv("Click Agree Button", "text-red-600");
@@ -151,8 +158,11 @@ export default function SignUpComponent() {
 
             {/* Signup Button */}
             <CustomButton
-              className="container bg-black mt-8 text-white text-center rounded-md p-2"
-              text="Sign up"
+              className={`container bg-black mt-8 text-white text-center rounded-md p-2 ${
+                loading ? "cursor-not-allowed opacity-50" : ""
+              }`}
+              text={loading ? "Loading..." : "Sign up"}
+              tDisabled={loading}
             ></CustomButton>
           </div>
         </div>
