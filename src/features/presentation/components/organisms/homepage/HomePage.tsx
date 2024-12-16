@@ -89,8 +89,12 @@ export default function HomePage() {
           {offerbanner && offerbanner.length > 0 && (
             <ImageOffer banner={offerbanner} />
           )}
-          <Category categories={category} />
-          <DealsOfDay deals={offerdeal} />
+          {category && category.length > 0 && (
+            <Category categories={category} />
+          )}
+          {offerdeal && offerdeal.length > 0 && (
+            <DealsOfDay deals={offerdeal} />
+          )}
           <InfoCard />
           <AboutUs />
         </main>
