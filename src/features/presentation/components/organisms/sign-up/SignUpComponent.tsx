@@ -59,7 +59,7 @@ export default function SignUpComponent() {
               email: data.Email,
               password: data.Password,
               userName: data.Username,
-              userImage: file,
+              userImage: file || null,
             };
             setLoading(true);
             try {
@@ -130,7 +130,6 @@ export default function SignUpComponent() {
                 accept="userImage/*"
                 id="txtProductImage"
                 {...register("userImage", {
-                  required: true,
                   onChange: (e) => setFile(e.target.files[0] || null),
                 })}
               />
