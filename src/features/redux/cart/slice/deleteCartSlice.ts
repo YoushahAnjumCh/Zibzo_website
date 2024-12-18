@@ -89,17 +89,20 @@ const initialState: UserState = {
   cartProductCount: 0,
   error: null,
 };
-
 const deleteCartSlice = createSlice({
   name: "cart",
   initialState,
-  reducers: {},
+  reducers: {
+    removeProductFromState: (state, action: PayloadAction<string>) => {
+      state.products = state.products.filter(
+        (product) => product._id !== action.payload
+      );
+      state.cartProductCount = Math.max(0, state.cartProductCount - 1);
+    },
+  },
   extraReducers: (builder) => {
     builder
-      .addCase(deleteCartItems.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
+      .addCase(deleteCartItems.pending, (state) => {})
       .addCase(
         deleteCartItems.fulfilled,
         (
@@ -110,20 +113,19 @@ const deleteCartSlice = createSlice({
             cartProductCount: number;
           }>
         ) => {
-          state.loading = false;
-          state.cart = action.payload.cart; // Store cart
-          state.products = action.payload.products; // Store products
+          state.cart = action.payload.cart; // Update cart data if necessary
+          state.products = action.payload.products; // Sync with server response
           state.cartProductCount = action.payload.cartProductCount;
         }
       )
       .addCase(
         deleteCartItems.rejected,
         (state, action: PayloadAction<string | undefined>) => {
-          state.loading = false;
           state.error = action.payload || "An error occurred";
         }
       );
   },
 });
 
+export const { removeProductFromState } = deleteCartSlice.actions;
 export default deleteCartSlice.reducer;

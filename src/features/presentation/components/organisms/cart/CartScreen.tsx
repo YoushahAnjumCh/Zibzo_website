@@ -10,7 +10,10 @@ import CartCard from "./CartCard";
 import { useCart } from "../../../../../hooks/cartContext";
 import CustomButton from "../../atoms/custom-button/CustomButton";
 import { unwrapResult } from "@reduxjs/toolkit";
-import { deleteCartItems } from "../../../../redux/cart/slice/deleteCartSlice";
+import {
+  deleteCartItems,
+  removeProductFromState,
+} from "../../../../redux/cart/slice/deleteCartSlice";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import Loading from "../../atoms/loading/loading";
@@ -35,24 +38,34 @@ export default function CartScreen() {
   );
   const deleteCartProduct = async (id: string) => {
     try {
+      dispatch(removeProductFromState(id));
       const resultAction = await dispatch(
         deleteCartItems({
           userID: String(authData?.id),
           productID: id,
           token: String(authData?.token),
-        }) // Your delete action
+        })
       );
 
       const response = unwrapResult(resultAction);
-      console.dir("RESPONSE" + response);
+
+      // Handle successful response (optional if optimistic update works)
       toast.success("Cart item deleted!");
+
       if (response.cart && response.cart.cartProductCount !== undefined) {
         setCartCount(response.cart.cartProductCount); // Update cart count
       } else {
         setCartCount(response.cartProductCount);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      toast.error("Failed to delete cart item. Please try again.");
+      dispatch(
+        fetchCartItems({
+          userID: String(authData?.id),
+          token: String(authData?.token),
+        })
+      );
     }
   };
   useEffect(() => {
@@ -86,9 +99,7 @@ export default function CartScreen() {
               <div className="grow overflow-y-auto relative">
                 {/* Overlay Spinner */}
                 <div className="flex flex-col space-y-4">
-                  {loading ? (
-                    <Loading />
-                  ) : products && products.length > 0 ? (
+                  {products && products.length > 0 ? (
                     products.map((product, index) => (
                       <CartCard
                         key={index}
