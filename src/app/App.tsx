@@ -1,4 +1,10 @@
-import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  HashRouter,
+  Route,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
 import { Provider } from "react-redux";
 import { NewProduct } from "../features/presentation/backend/productupload/NewProduct";
 import { UploadCategory } from "../features/presentation/backend/uploadForms/UploadCategory";
@@ -39,7 +45,7 @@ function App() {
       <AdminAuthProvider>
         <Toaster position="top-center" reverseOrder={false} />
         <Provider store={store}>
-          <BrowserRouter>
+          <HashRouter>
             {/* Redirection Logic */}
             <AuthRedirectHandler />
 
@@ -117,7 +123,7 @@ function App() {
               ></Route>
               <Route path="/adminlogin" element={<AdminLogin />}></Route>
             </Routes>
-          </BrowserRouter>
+          </HashRouter>
         </Provider>
       </AdminAuthProvider>
     </AuthProvider>
