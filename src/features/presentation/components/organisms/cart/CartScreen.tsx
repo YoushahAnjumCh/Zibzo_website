@@ -66,12 +66,9 @@ export default function CartScreen() {
       0
     );
   }
-  if (loading) return <Loading />;
-
   if (error) {
     return <div>Error: {error}</div>;
   }
-
   return (
     <>
       <div className="flex flex-col min-h-screen">
@@ -88,13 +85,10 @@ export default function CartScreen() {
               {/* Products Section */}
               <div className="grow overflow-y-auto relative">
                 {/* Overlay Spinner */}
-                {loading && (
-                  <div className="absolute inset-0 z-50 flex items-center justify-center bg-black bg-opacity-10">
-                    <div className="animate-spin rounded-full h-10 w-10 border-4 border-t-transparent border-gray-800"></div>
-                  </div>
-                )}
                 <div className="flex flex-col space-y-4">
-                  {products && products.length > 0 ? (
+                  {loading ? (
+                    <Loading />
+                  ) : products && products.length > 0 ? (
                     products.map((product, index) => (
                       <CartCard
                         key={index}
