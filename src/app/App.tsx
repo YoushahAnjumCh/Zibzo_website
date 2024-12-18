@@ -25,14 +25,18 @@ import { AdminAuthProvider } from "../hooks/adminAuthContext";
 import { Toaster } from "react-hot-toast";
 import { useEffect } from "react";
 import { UploadOfferBanner } from "../features/presentation/backend/uploadForms/UploadOfferBanner";
-
 function AuthRedirectHandler() {
   const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
+    const excludedPaths = ["/", "/signup"];
+    const currentPath = window.location.hash.replace("#", "");
+
     if (!token || token.trim() === "") {
-      navigate("/");
+      if (!excludedPaths.includes(currentPath)) {
+        navigate("/");
+      }
     }
   }, [navigate]);
 
