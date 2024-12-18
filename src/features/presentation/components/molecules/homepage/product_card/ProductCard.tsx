@@ -1,4 +1,3 @@
-import React from "react";
 import { toast } from "react-hot-toast";
 import CustomImage from "../../../atoms/image/CustomImage";
 import TitleParagraph from "../../../atoms/title_headings/TitleParagraph";
@@ -10,7 +9,6 @@ import { useDispatch } from "react-redux";
 import { addToCartDB } from "../../../../../redux/cart/slice/addToCartSlice";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useCart } from "../../../../../../hooks/cartContext";
-import ApiService from "../../../../../../constant/Environment";
 
 type ProductCardProps = {
   title: string;
@@ -23,10 +21,6 @@ type ProductCardProps = {
 };
 
 export default function ProductCard(props: ProductCardProps) {
-  const apiService = ApiService.getInstance();
-
-  // Example usage in an API call
-  const API_URL = apiService.getApiUrl();
   const { authData } = useAuthentication();
   const { setCartCount } = useCart();
   const dispatch: AppDispatch = useDispatch();
@@ -55,7 +49,7 @@ export default function ProductCard(props: ProductCardProps) {
     <div className="md:w-64 w-32 relative space-x-3 shadow-sm rounded-sm hover:scale-95 transition duration-200 cursor-pointer group">
       {/* Product Image */}
       <CustomImage
-        ImageSrc={`${API_URL}/${props.image[0]}`}
+        ImageSrc={props.image[0]}
         alt={props.title}
         className="md:h-[190px] h-[120px] w-full object-cover rounded-t-lg"
       />

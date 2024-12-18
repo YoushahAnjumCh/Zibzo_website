@@ -13,17 +13,13 @@ type DealInfoProps = {
 };
 
 export default function DealsInfo(props: DealInfoProps) {
-  const apiService = ApiService.getInstance();
-
-  // Example usage in an API call
-  const API_URL = apiService.getApiUrl();
   return (
     <div className="flex flex-col justify-center items-center py-4">
       {props.logo && (
         <div>
           {/* Product Logo */}
           <CustomImage
-            ImageSrc={`${API_URL}/${props.logo}`}
+            ImageSrc={props.logo}
             alt={props.logoTitle}
             className="md:w-24 w-16"
           />

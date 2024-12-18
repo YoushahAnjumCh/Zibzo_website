@@ -65,6 +65,7 @@ export default function SigninComponent() {
             if (authData.token) {
               handleShowDiv("Success", "text-green-600");
               setAuthData(authData);
+              localStorage.setItem("authToken", authData.token);
               setShowDiv(true);
               navigate(location.state?.from || "/homepage", { replace: true });
             }

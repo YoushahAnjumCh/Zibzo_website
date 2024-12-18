@@ -98,6 +98,7 @@ export default function Navbar() {
                     href="#"
                     onClick={(e) => {
                       e.preventDefault(); // Prevent default anchor behavior
+                      localStorage.removeItem("authToken");
                       clearAuthData(); // Call the logout function
                       navigate("/", { replace: true });
                     }}
