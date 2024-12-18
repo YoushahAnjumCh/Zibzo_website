@@ -21,7 +21,7 @@ export default function DealsInfo(props: DealInfoProps) {
           <CustomImage
             ImageSrc={props.logo}
             alt={props.logoTitle}
-            className="md:w-24 w-16"
+            className="md:w-24"
           />
         </div>
       )}
