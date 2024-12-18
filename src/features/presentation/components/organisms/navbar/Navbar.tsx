@@ -118,8 +118,12 @@ export default function Navbar() {
         <div className="md:hidden bg-white border-t border-gray-200 mt-2">
           <ul className="flex flex-col gap-2 p-4">
             {MenuLinks.map((menu) => (
-              <li key={menu.id} className="hover:text-gray-400 duration-200">
-                <a href={menu.link}>{menu.name}</a>
+              <li
+                key={menu.id}
+                className="hover:text-gray-400 duration-200 cursor-pointer"
+                onClick={() => navigate(menu.link)}
+              >
+                {menu.name}
               </li>
             ))}
           </ul>
