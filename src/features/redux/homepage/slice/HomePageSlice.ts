@@ -22,13 +22,16 @@ export const fetchProductsAndBanners = createAsyncThunk<
   const apiService = ApiService.getInstance();
 
   try {
-    const response = await fetch(apiService.getFullUrl("products"), {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await fetch(
+      apiService.getFullUrl("products?userID=${userID}"),
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     const data = await response.json();
     if (response.ok) {

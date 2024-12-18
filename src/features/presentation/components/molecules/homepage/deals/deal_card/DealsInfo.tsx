@@ -15,16 +15,6 @@ type DealInfoProps = {
 export default function DealsInfo(props: DealInfoProps) {
   return (
     <div className="flex flex-col justify-center items-center py-4">
-      {props.logo && (
-        <div>
-          {/* Product Logo */}
-          <CustomImage
-            ImageSrc={props.logo}
-            alt={props.logoTitle}
-            className="md:w-24"
-          />
-        </div>
-      )}
       <div className="flex flex-col justify-center text-center">
         {/* Offer Title   */}
         <TitleHeading

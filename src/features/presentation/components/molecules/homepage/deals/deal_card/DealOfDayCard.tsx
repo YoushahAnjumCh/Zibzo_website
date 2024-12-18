@@ -15,10 +15,9 @@ export default function DealOfDayCard(props: CardProps) {
   return (
     <div className=" md:w-80 w-48  space-x-3   shadow-sm rounded-sm cursor-pointer">
       {/* Deal of Day Image  */}
-      <Deal_Image logo={props.logo} image={props.image} title={props.title} />
+      <Deal_Image image={props.image} title={props.title} />
       {/* Deal of the Title Logo Price */}
       <DealsInfo
-        logo={props.logo}
         logoTitle={props.title}
         title={props.title}
         offer={props.offer}

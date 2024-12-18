@@ -40,7 +40,6 @@ export default function DealsOfDay({ deals }: DealsOfDayProps) {
               <DealOfDayCard
                 key={index}
                 image={deal.image}
-                logo={deal.logo ?? ""}
                 title={deal.title}
                 offer={deal.offer}
               />
