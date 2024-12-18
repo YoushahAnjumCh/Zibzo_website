@@ -20,7 +20,7 @@ import Loading from "../../atoms/loading/loading";
 export default function CartScreen() {
   const dispatch: AppDispatch = useDispatch();
   const { authData } = useAuthentication();
-  const { setCartCount } = useCart();
+  const { setCartCount, cartCount } = useCart();
   var totalOfferPrice: any;
   useEffect(() => {
     if (authData?.id) {
@@ -99,20 +99,24 @@ export default function CartScreen() {
               <div className="grow overflow-y-auto relative">
                 {/* Overlay Spinner */}
                 <div className="flex flex-col space-y-4">
-                  {products && products.length > 0 ? (
-                    products.map((product, index) => (
-                      <CartCard
-                        key={index}
-                        image={product.image}
-                        offerPrice={product.offerPrice}
-                        subtitle={product.subtitle}
-                        id={product._id ?? ""}
-                        title={product.title}
-                        actualPrice={product.actualPrice}
-                        offerPercentage={product.offerPercentage}
-                        onClick={deleteCartProduct}
-                      />
-                    ))
+                  {cartCount > 0 ? (
+                    products && products.length > 0 ? (
+                      products.map((product, index) => (
+                        <CartCard
+                          key={index}
+                          image={product.image}
+                          offerPrice={product.offerPrice}
+                          subtitle={product.subtitle}
+                          id={product._id ?? ""}
+                          title={product.title}
+                          actualPrice={product.actualPrice}
+                          offerPercentage={product.offerPercentage}
+                          onClick={deleteCartProduct}
+                        />
+                      ))
+                    ) : (
+                      <div></div>
+                    )
                   ) : (
                     <div className="text-center mt-20">
                       <p className="text-gray-600 text-xl font-semibold">
@@ -130,17 +134,22 @@ export default function CartScreen() {
               </div>
 
               {/* Summary Section */}
-              {products && products.length > 0 && (
-                <div className="w-full lg:w-3/12 lg:sticky lg:top-0 mt-4 lg:mt-0 p-4">
-                  <h3 className="text-lg font-semibold">Total Price:</h3>
-                  <p className="text-2xl font-bold text-black">
-                    {totalOfferPrice ?? 0}
-                  </p>
-                  <CustomButton
-                    className="container bg-black mt-8 text-white text-center rounded-md p-2"
-                    text="Buy Now"
-                  />
-                </div>
+              {cartCount > 0 ? (
+                products &&
+                products.length > 0 && (
+                  <div className="w-full lg:w-3/12 lg:sticky lg:top-0 mt-4 lg:mt-0 p-4">
+                    <h3 className="text-lg font-semibold">Total Price:</h3>
+                    <p className="text-2xl font-bold text-black">
+                      {totalOfferPrice ?? 0}
+                    </p>
+                    <CustomButton
+                      className="container bg-black mt-8 text-white text-center rounded-md p-2"
+                      text="Buy Now"
+                    />
+                  </div>
+                )
+              ) : (
+                <div></div>
               )}
             </div>
           </div>
