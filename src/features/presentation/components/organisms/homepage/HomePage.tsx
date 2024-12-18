@@ -72,6 +72,7 @@ export default function HomePage() {
     dispatch(
       fetchProductsAndBanners({
         userID: String(authData?.id),
+        token: String(authData?.token),
       })
     );
   }, [dispatch]);

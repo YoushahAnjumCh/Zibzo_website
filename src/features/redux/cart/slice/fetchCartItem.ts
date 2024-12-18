@@ -9,9 +9,9 @@ export const fetchCartItems = createAsyncThunk<
     products: ProductsModel[];
     cartProductCount: number;
   },
-  { userID: string },
+  { userID: string; token: string },
   { rejectValue: string }
->("fetchCart", async ({ userID }, { rejectWithValue }) => {
+>("fetchCart", async ({ userID, token }, { rejectWithValue }) => {
   const apiService = ApiService.getInstance();
 
   // Example usage in an API call
@@ -23,6 +23,7 @@ export const fetchCartItems = createAsyncThunk<
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       }
     );

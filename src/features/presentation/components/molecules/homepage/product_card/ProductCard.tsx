@@ -31,6 +31,7 @@ export default function ProductCard(props: ProductCardProps) {
         addToCartDB({
           userID: String(authData?.id),
           productID: props.id,
+          token: String(authData?.token),
         })
       );
       const response = unwrapResult(resultAction);

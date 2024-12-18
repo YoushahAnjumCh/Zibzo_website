@@ -16,15 +16,17 @@ export const fetchProductsAndBanners = createAsyncThunk<
     offerdeal: OfferDealModel[];
     cartProductCount: number;
   },
-  { userID: string },
+  { userID: string; token: string },
   { rejectValue: string }
->("users/fetchProducts", async ({ userID }, { rejectWithValue }) => {
+>("users/fetchProducts", async ({ userID, token }, { rejectWithValue }) => {
   const apiService = ApiService.getInstance();
+
   try {
     const response = await fetch(apiService.getFullUrl("products"), {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
 
