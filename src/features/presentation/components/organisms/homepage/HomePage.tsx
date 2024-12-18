@@ -76,25 +76,32 @@ export default function HomePage() {
       })
     );
   }, [dispatch]);
-  if (loading) return <Loading />;
 
   return (
     <>
       <div className="flex flex-col min-h-screen">
         <main className="flex-grow">
           <Navbar />
-          {homebanner && homebanner.length > 0 && (
-            <Hero slides={homebanner} />
-          )}{" "}
-          {products && products.length > 0 && <Products products={products} />}
-          {category && category.length > 0 && (
-            <Category categories={category} />
-          )}
-          {offerbanner && offerbanner.length > 0 && (
-            <ImageOffer banner={offerbanner} />
-          )}
-          {offerdeal && offerdeal.length > 0 && (
-            <DealsOfDay deals={offerdeal} />
+          {loading ? (
+            <Loading />
+          ) : (
+            <>
+              {homebanner && homebanner.length > 0 && (
+                <Hero slides={homebanner} />
+              )}
+              {products && products.length > 0 && (
+                <Products products={products} />
+              )}
+              {category && category.length > 0 && (
+                <Category categories={category} />
+              )}
+              {offerbanner && offerbanner.length > 0 && (
+                <ImageOffer banner={offerbanner} />
+              )}
+              {offerdeal && offerdeal.length > 0 && (
+                <DealsOfDay deals={offerdeal} />
+              )}
+            </>
           )}
           <InfoCard />
           <AboutUs />
