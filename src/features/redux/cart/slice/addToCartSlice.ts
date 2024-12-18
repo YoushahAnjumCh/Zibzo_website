@@ -7,9 +7,9 @@ export const addToCartDB = createAsyncThunk<
   {
     cart: CartModel;
   },
-  { userID: string; productID: string },
+  { userID: string; productID: string; token: string },
   { rejectValue: string }
->("fetchCart", async ({ userID, productID }, { rejectWithValue }) => {
+>("fetchCart", async ({ userID, productID, token }, { rejectWithValue }) => {
   const apiService = ApiService.getInstance();
 
   // Example usage in an API call
@@ -19,6 +19,7 @@ export const addToCartDB = createAsyncThunk<
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         userID: userID,

@@ -24,6 +24,7 @@ export default function CartScreen() {
       dispatch(
         fetchCartItems({
           userID: String(authData.id),
+          token: String(authData?.token),
         })
       );
     }
@@ -35,7 +36,11 @@ export default function CartScreen() {
   const deleteCartProduct = async (id: string) => {
     try {
       const resultAction = await dispatch(
-        deleteCartItems({ userID: String(authData?.id), productID: id }) // Your delete action
+        deleteCartItems({
+          userID: String(authData?.id),
+          productID: id,
+          token: String(authData?.token),
+        }) // Your delete action
       );
 
       const response = unwrapResult(resultAction);
@@ -45,7 +50,6 @@ export default function CartScreen() {
         setCartCount(response.cart.cartProductCount); // Update cart count
       } else {
         setCartCount(response.cartProductCount);
-        console.warn("Cart was empty; resetting cart count to 0");
       }
     } catch (error) {
       console.log(error);

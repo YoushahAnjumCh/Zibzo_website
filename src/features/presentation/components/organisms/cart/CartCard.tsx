@@ -28,7 +28,7 @@ export default function CartCard(props: CardCardProps) {
   return (
     <div className="flex">
       <CustomImage
-        ImageSrc={`${API_URL}/${props.image[0]}`}
+        ImageSrc={props.image[0]}
         alt={props.title}
         className="md:h-[180px] h-[110px] md:w-[180px] w-[100px] object-cover rounded-md"
       />
