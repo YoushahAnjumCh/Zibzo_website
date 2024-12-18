@@ -86,11 +86,11 @@ export default function HomePage() {
             <Hero slides={homebanner} />
           )}{" "}
           {products && products.length > 0 && <Products products={products} />}
-          {offerbanner && offerbanner.length > 0 && (
-            <ImageOffer banner={offerbanner} />
-          )}
           {category && category.length > 0 && (
             <Category categories={category} />
+          )}
+          {offerbanner && offerbanner.length > 0 && (
+            <ImageOffer banner={offerbanner} />
           )}
           {offerdeal && offerdeal.length > 0 && (
             <DealsOfDay deals={offerdeal} />

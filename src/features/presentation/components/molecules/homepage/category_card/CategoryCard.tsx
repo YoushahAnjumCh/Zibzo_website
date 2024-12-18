@@ -1,7 +1,6 @@
 import React from "react";
 import CustomImage from "../../../atoms/image/CustomImage";
 import TitleHeading from "../../../atoms/title_headings/TitleHeading";
-import ApiService from "../../../../../../constant/Environment";
 
 type CategoryCardProps = {
   categoryImage: string;
@@ -9,16 +8,12 @@ type CategoryCardProps = {
 };
 
 export default function CategoryCard(props: CategoryCardProps) {
-  const apiService = ApiService.getInstance();
-
-  // Example usage in an API call
-  const API_URL = apiService.getApiUrl();
   return (
     <div className="cursor-pointer relative md:w-72 w-36 md:h-48 h-28 min-w-[10rem] flex-shrink-0">
       <div className=" rounded-xl overflow-hidden relative w-full h-full">
         {/* Category Image   */}
         <CustomImage
-          ImageSrc={`${API_URL}/${props.categoryImage}`}
+          ImageSrc={props.categoryImage}
           alt={props.categoryImage}
           className="w-full h-full object-cover"
         />

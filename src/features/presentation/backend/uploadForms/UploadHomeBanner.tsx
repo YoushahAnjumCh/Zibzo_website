@@ -58,7 +58,6 @@ export const UploadHomeBanner: React.FC = () => {
       if (response.ok) {
         const result = await response.json();
         if (result && result._id) {
-          console.log(result);
           navigate("/homepage", { replace: true });
         } else {
           console.error(
