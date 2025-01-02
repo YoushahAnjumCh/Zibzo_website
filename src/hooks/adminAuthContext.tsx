@@ -28,8 +28,8 @@ export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({
   }, [adminAuthData]);
 
   const adminClearAuthData = () => {
-    adminSetAuthData(null); // Clear state
-    localStorage.removeItem("adminAuthData"); // Clear local storage
+    adminSetAuthData(null);
+    localStorage.removeItem("adminAuthData");
   };
 
   return (

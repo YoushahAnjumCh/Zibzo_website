@@ -3,11 +3,11 @@ import { SignupInput } from "../../organisms/sign-up/SignUpComponent";
 type SignupProps = {
   placeholder: string;
   type: string;
-  id: keyof SignupInput; // Type should match the fields from SignupInput
-  register: UseFormRegister<any>; // Ensure the types match SignupInput
-  error?: FieldError; // Change errors to FieldError to match react-hook-form
+  id: keyof SignupInput;
+  register: UseFormRegister<any>;
+  error?: FieldError;
   customError?: string;
-  maxLength?: number | undefined; // Optionally provide maxLength
+  maxLength?: number | undefined;
 };
 
 export default function Textfield(props: SignupProps) {

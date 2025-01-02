@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
 import { AppState } from "../features/redux/store";
 
-// Custom Hook
 export function useAuth() {
   useSelector((store: AppState) => store.auth);
 

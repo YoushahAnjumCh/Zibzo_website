@@ -18,11 +18,10 @@ type CardCardProps = {
 export default function CartCard(props: CardCardProps) {
   const apiService = ApiService.getInstance();
 
-  // Example usage in an API call
   const API_URL = apiService.getApiUrl();
   const handleClick = () => {
     if (props.onClick) {
-      props.onClick(props.id); // Call the onClick function passed from parent with the product id
+      props.onClick(props.id);
     }
   };
   return (

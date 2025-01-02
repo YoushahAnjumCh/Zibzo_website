@@ -5,7 +5,7 @@ import ApiService from "../../../../constant/Environment";
 
 export const fetchCartItems = createAsyncThunk<
   {
-    cart: CartModel;
+    cart: CartModel | null;
     products: ProductsModel[];
     cartProductCount: number;
   },
@@ -13,9 +13,8 @@ export const fetchCartItems = createAsyncThunk<
   { rejectValue: string }
 >("fetchCart", async ({ userID, token }, { rejectWithValue }) => {
   const apiService = ApiService.getInstance();
-
-  // Example usage in an API call
   const API_URL = apiService.getApiUrl();
+
   try {
     const response = await fetch(
       `${API_URL}/cart/?userID=${encodeURIComponent(userID)}`,
@@ -28,24 +27,31 @@ export const fetchCartItems = createAsyncThunk<
       }
     );
 
+    if (response.status === 404) {
+      return {
+        cart: null,
+        products: [],
+        cartProductCount: 0,
+      };
+    }
+
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(errorData.message || "Failed to fetch cart items");
     }
 
     const data = await response.json();
-    // Handle case where data.cart or data.products is missing
+
     if (!data.cart) {
       throw new Error("Cart not found");
     }
-    // Map cart data to CartModel
+
     const cart = new CartModel(
       data.cart.userID,
       data.cart.productID,
       data.cart.__v
     );
 
-    // Map products data to ProductsModel
     const products = Array.isArray(data.products)
       ? data.products.map(
           (product: any) =>
@@ -60,7 +66,7 @@ export const fetchCartItems = createAsyncThunk<
             )
         )
       : [];
-    const cartProductCount = data.cartProductCount || 0; // Default to 0 if not provided
+    const cartProductCount = data.cartProductCount || 0;
 
     return { cart, products, cartProductCount };
   } catch (error: any) {
@@ -71,7 +77,7 @@ export const fetchCartItems = createAsyncThunk<
 
 interface UserState {
   products: ProductsModel[];
-  cart: CartModel | null; // Adjusted type for initial state
+  cart: CartModel | null;
   loading: boolean;
   cartProductCount: number;
   error: string | null;
@@ -79,7 +85,7 @@ interface UserState {
 
 const initialState: UserState = {
   products: [],
-  cart: null, // Correctly initialize as `null`
+  cart: null,
   loading: false,
   cartProductCount: 0,
   error: null,
@@ -100,14 +106,14 @@ const fetchCartSlice = createSlice({
         (
           state,
           action: PayloadAction<{
-            cart: CartModel;
+            cart: CartModel | null;
             products: ProductsModel[];
             cartProductCount: number;
           }>
         ) => {
           state.loading = false;
-          state.cart = action.payload.cart; // Store cart
-          state.products = action.payload.products; // Store products
+          state.cart = action.payload.cart;
+          state.products = action.payload.products;
           state.cartProductCount = action.payload.cartProductCount;
         }
       )

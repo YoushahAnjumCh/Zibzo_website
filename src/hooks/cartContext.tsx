@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 
-// Define types for Cart Context
 interface CartContextType {
   cartCount: number;
   setCartCount: (count: number) => void;
@@ -8,7 +7,6 @@ interface CartContextType {
   decrementCartCount: () => void;
 }
 
-// Create Cart Context
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -26,7 +24,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   }, [cartCount]);
 
-  // Functions to modify the cart count
   const incrementCartCount = () => setCartCount((prev) => prev + 1);
   const decrementCartCount = () =>
     setCartCount((prev) => (prev > 0 ? prev - 1 : 0));
@@ -45,7 +42,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   );
 };
 
-// Custom Hook to Access Cart Context
 export const useCart = (): CartContextType => {
   const context = useContext(CartContext);
   if (!context) {

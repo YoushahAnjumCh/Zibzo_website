@@ -4,7 +4,7 @@ import { AuthModel } from "../features/redux/auth/model/auth.model";
 interface AuthContextType {
   authData: AuthModel | null;
   setAuthData: (data: AuthModel | null) => void;
-  clearAuthData: () => void; // Add clear function
+  clearAuthData: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -26,8 +26,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   }, [authData]);
 
   const clearAuthData = () => {
-    setAuthData(null); // Clear state
-    localStorage.removeItem("authData"); // Clear local storage
+    setAuthData(null);
+    localStorage.removeItem("authData");
   };
 
   return (

@@ -23,7 +23,6 @@ export const NewProduct: React.FC = () => {
   let auth = useSelector((store: AppState) => store.auth);
   const apiService = ApiService.getInstance();
 
-  // Example usage in an API call
   const API_URL = apiService.getApiUrl();
   const [files, setFiles] = useState<File[]>([]);
   const [loading, setLoading] = useState(false);
@@ -48,9 +47,9 @@ export const NewProduct: React.FC = () => {
     formData.append("offerPrice", String(data.ProductOfferPrice));
     formData.append("offerPercentage", String(data.ProductOfferPercentage));
     formData.append("actualPrice", String(data.ProductActualPrice));
-    // Append each image to the form data
+
     files.forEach((file) => {
-      formData.append("ProductImage", file); // Make sure the name here matches upload.array("ProductImage", 10) on the server
+      formData.append("ProductImage", file);
     });
     setLoading(true);
     try {
@@ -59,7 +58,6 @@ export const NewProduct: React.FC = () => {
         body: formData,
       });
       const result = await response.json();
-      // Check if response is OK
 
       if (result && result._id) {
         navigate("/homepage", { replace: true });

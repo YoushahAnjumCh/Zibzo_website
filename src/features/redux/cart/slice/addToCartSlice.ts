@@ -12,7 +12,6 @@ export const addToCartDB = createAsyncThunk<
 >("fetchCart", async ({ userID, productID, token }, { rejectWithValue }) => {
   const apiService = ApiService.getInstance();
 
-  // Example usage in an API call
   const API_URL = apiService.getApiUrl();
   try {
     const response = await fetch(`${API_URL}/cart`, {
@@ -34,11 +33,10 @@ export const addToCartDB = createAsyncThunk<
 
     const data = await response.json();
 
-    // Map cart data to CartModel
     const cart = new CartModel(
-      data._id, // _id
-      data.userID, // userID
-      data.productID, // productID
+      data._id,
+      data.userID,
+      data.productID,
       data.cartProductCount
     );
 
@@ -50,13 +48,13 @@ export const addToCartDB = createAsyncThunk<
 });
 
 interface CartState {
-  cart: CartModel | null; // Adjusted type to `CartModel` or `null`
+  cart: CartModel | null;
   loading: boolean;
   error: string | null;
 }
 
 const initialState: CartState = {
-  cart: null, // Initial state is `null`
+  cart: null,
   loading: false,
   error: null,
 };
@@ -80,7 +78,7 @@ const addToCartSlice = createSlice({
           }>
         ) => {
           state.loading = false;
-          state.cart = action.payload.cart; // Store cart in state
+          state.cart = action.payload.cart;
         }
       )
       .addCase(

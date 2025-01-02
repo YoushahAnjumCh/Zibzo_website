@@ -49,17 +49,23 @@ export default function CartScreen() {
 
       const response = unwrapResult(resultAction);
 
-      // Handle successful response (optional if optimistic update works)
       toast.success("Cart item deleted!");
 
       if (response.cart && response.cart.cartProductCount !== undefined) {
-        setCartCount(response.cart.cartProductCount); // Update cart count
+        setCartCount(response.cart.cartProductCount);
       } else {
         setCartCount(response.cartProductCount);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      toast.error("Failed to delete cart item. Please try again.");
+
+      if (error.response?.status === 404) {
+        toast.error("Cart is already empty.");
+        setCartCount(0);
+      } else {
+        toast.error("Failed to delete cart item. Please try again.");
+      }
+
       dispatch(
         fetchCartItems({
           userID: String(authData?.id),
@@ -68,6 +74,7 @@ export default function CartScreen() {
       );
     }
   };
+
   useEffect(() => {
     if (cartProductCount !== undefined) {
       setCartCount(cartProductCount);

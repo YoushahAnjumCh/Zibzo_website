@@ -16,7 +16,6 @@ type ProductInput = {
 export const UploadDealoftheDay: React.FC = () => {
   const apiService = ApiService.getInstance();
 
-  // Example usage in an API call
   const API_URL = apiService.getApiUrl();
   const [fileImage, setImageFile] = useState<File | null>(null);
   const [fileLogo, setLogoFile] = useState<File | null>(null);

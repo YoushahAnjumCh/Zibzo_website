@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AuthService } from "../service/AuthService";
 import { AuthModel } from "../model/auth.model";
 
-// Async thunk for authentication
 export const authSignUp = createAsyncThunk<
   string,
   {
@@ -29,21 +28,18 @@ export const authSignUp = createAsyncThunk<
   }
 );
 
-// Define the authentication state interface
 interface AuthState {
   user: string | null;
   loading: boolean;
   error: string | null;
 }
 
-// Initial state
 const initialState: AuthState = {
   user: null,
   loading: false,
   error: null,
 };
 
-// Slice definition
 const signupSlice = createSlice({
   name: "signup",
   initialState,

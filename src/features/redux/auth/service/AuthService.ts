@@ -5,7 +5,6 @@ export class AuthService {
   static async login(email: string, password: string): Promise<AuthModel> {
     const apiService = ApiService.getInstance();
 
-    // Example usage in an API call
     const API_URL = apiService.getApiUrl();
     try {
       const response = await fetch(`${API_URL}/auth/login`, {
@@ -34,7 +33,6 @@ export class AuthService {
   ): Promise<string> {
     const apiService = ApiService.getInstance();
 
-    // Example usage in an API call
     const API_URL = apiService.getApiUrl();
     const formData = new FormData();
     formData.append("email", email);
@@ -47,7 +45,7 @@ export class AuthService {
 
     const response = await fetch(`${API_URL}/auth/signUp`, {
       method: "POST",
-      body: formData, // Send as FormData
+      body: formData,
     });
 
     const contentType = response.headers.get("content-type");
@@ -62,11 +60,10 @@ export class AuthService {
       throw new Error(`Unexpected response format: ${errorText}`);
     }
   }
-  //Admin
+
   static async adminlogin(email: string, password: string): Promise<AuthModel> {
     const apiService = ApiService.getInstance();
 
-    // Example usage in an API call
     const API_URL = apiService.getApiUrl();
     const response = await fetch(`${API_URL}/auth/adminLogin`, {
       method: "POST",
