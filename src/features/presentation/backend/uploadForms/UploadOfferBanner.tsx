@@ -14,7 +14,6 @@ type ProductInput = {
 export const UploadOfferBanner: React.FC = () => {
   const apiService = ApiService.getInstance();
 
-  // Example usage in an API call
   const API_URL = apiService.getApiUrl();
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
@@ -52,7 +51,7 @@ export const UploadOfferBanner: React.FC = () => {
         body: formData,
       });
       if (!response.ok) {
-        const errorText = await response.text(); // Log full server response
+        const errorText = await response.text();
         console.error("Error:", errorText);
       }
       if (response.ok) {

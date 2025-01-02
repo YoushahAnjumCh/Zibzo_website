@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAdminAuthentication } from "../../../../hooks/adminAuthContext";
 
 export default function Header() {
-  const [menuOpen, setMenuOpen] = useState(false); // State for mobile menu
+  const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
   const { adminAuthData, adminClearAuthData } = useAdminAuthentication();
 
@@ -86,8 +86,8 @@ export default function Header() {
         <div className="hidden lg:block">
           <a
             onClick={(e) => {
-              e.preventDefault(); // Prevent default anchor behavior
-              adminClearAuthData(); // Call the logout function
+              e.preventDefault();
+              adminClearAuthData();
               navigate("/homepage", { replace: true });
             }}
             className="text-white hover:text-gray-300 cursor-pointer"

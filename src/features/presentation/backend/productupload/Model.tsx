@@ -1,4 +1,3 @@
-//* created a model class
 export class ProductsModel {
   constructor(
     public subTitle: string,

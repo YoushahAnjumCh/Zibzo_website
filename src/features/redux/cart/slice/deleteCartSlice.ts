@@ -14,7 +14,6 @@ export const deleteCartItems = createAsyncThunk<
 >("fetchCart", async ({ userID, productID, token }, { rejectWithValue }) => {
   const apiService = ApiService.getInstance();
 
-  // Example usage in an API call
   const API_URL = apiService.getApiUrl();
   try {
     const response = await fetch(
@@ -32,6 +31,15 @@ export const deleteCartItems = createAsyncThunk<
         }),
       }
     );
+    if (response.status === 404) {
+      const errorData = await response.json();
+      return {
+        cart: null,
+        products: [],
+        cartProductCount: 0,
+        message: errorData.message || "Cart is Empty!",
+      };
+    }
 
     if (!response.ok) {
       const errorData = await response.json();
@@ -43,14 +51,12 @@ export const deleteCartItems = createAsyncThunk<
     if (!data.cart) {
       return data;
     }
-    // Map cart data to CartModel
     const cart = new CartModel(
       data.cart.userID,
       data.cart.productID,
       data.cart.__v
     );
 
-    // Map products data to ProductsModel
     const products = Array.isArray(data.products)
       ? data.products.map(
           (product: any) =>
@@ -65,7 +71,7 @@ export const deleteCartItems = createAsyncThunk<
             )
         )
       : [];
-    const cartProductCount = data.cartProductCount || 0; // Default to 0 if not provided
+    const cartProductCount = data.cartProductCount || 0;
 
     return { cart, products, cartProductCount };
   } catch (error: any) {
@@ -76,7 +82,7 @@ export const deleteCartItems = createAsyncThunk<
 
 interface UserState {
   products: ProductsModel[];
-  cart: CartModel | null; // Adjusted type for initial state
+  cart: CartModel | null;
   loading: boolean;
   cartProductCount: number;
   error: string | null;
@@ -84,7 +90,7 @@ interface UserState {
 
 const initialState: UserState = {
   products: [],
-  cart: null, // Correctly initialize as `null`
+  cart: null,
   loading: false,
   cartProductCount: 0,
   error: null,
@@ -113,8 +119,8 @@ const deleteCartSlice = createSlice({
             cartProductCount: number;
           }>
         ) => {
-          state.cart = action.payload.cart; // Update cart data if necessary
-          state.products = action.payload.products; // Sync with server response
+          state.cart = action.payload.cart;
+          state.products = action.payload.products;
           state.cartProductCount = action.payload.cartProductCount;
         }
       )

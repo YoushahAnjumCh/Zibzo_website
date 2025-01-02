@@ -1,5 +1,3 @@
-// src/domain/model/home_page/ProductsModel.ts
-
 export class ProductsModel {
   public title: string;
   public _id: string;

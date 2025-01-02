@@ -97,9 +97,9 @@ export default function Navbar() {
                   <a
                     href="#"
                     onClick={(e) => {
-                      e.preventDefault(); // Prevent default anchor behavior
+                      e.preventDefault();
                       localStorage.removeItem("authToken");
-                      clearAuthData(); // Call the logout function
+                      clearAuthData();
                       navigate("/", { replace: true });
                     }}
                     className="text-gray-800 cursor-pointer hover:text-gray-600"

@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { AuthModel } from "../model/auth.model";
 import { AuthService } from "../service/AuthService";
 
-// Async thunk for authentication
 export const adminAuthSignIn = createAsyncThunk<
   AuthModel,
   { email: string; password: string },
@@ -15,7 +14,6 @@ export const adminAuthSignIn = createAsyncThunk<
   }
 });
 
-// Define the authentication state interface
 interface AuthState {
   isUserAuthenticated: boolean;
   user: AuthModel | null;
@@ -23,7 +21,6 @@ interface AuthState {
   error: string | null;
 }
 
-// Initial state
 const initialState: AuthState = {
   isUserAuthenticated: JSON.parse(
     localStorage.getItem("isUserAuthenticated") || "false"
@@ -34,7 +31,6 @@ const initialState: AuthState = {
   error: null,
 };
 
-// Slice definition
 const adminAuthSlice = createSlice({
   name: "auth",
   initialState,

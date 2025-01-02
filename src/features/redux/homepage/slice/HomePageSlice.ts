@@ -138,8 +138,8 @@ const userSlice = createSlice({
           }>
         ) => {
           state.loading = false;
-          state.products = action.payload.products; // Store products
-          state.homebanner = action.payload.homebanner; // Store home banners
+          state.products = action.payload.products;
+          state.homebanner = action.payload.homebanner;
           state.category = action.payload.category;
           state.offerdeal = action.payload.offerdeal;
           state.offerbanner = action.payload.offerbanner;

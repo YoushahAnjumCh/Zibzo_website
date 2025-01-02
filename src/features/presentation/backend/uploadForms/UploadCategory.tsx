@@ -13,7 +13,6 @@ type ProductInput = {
 export const UploadCategory: React.FC = () => {
   const apiService = ApiService.getInstance();
 
-  // Example usage in an API call
   const API_URL = apiService.getApiUrl();
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
