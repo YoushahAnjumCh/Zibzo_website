@@ -23,7 +23,7 @@ export const fetchProductsAndBanners = createAsyncThunk<
 
   try {
     const response = await fetch(
-      apiService.getFullUrl("products?userID=${userID}"),
+      `${apiService.getFullUrl("products")}?userID=${userID}`,
       {
         method: "GET",
         headers: {
@@ -48,7 +48,6 @@ export const fetchProductsAndBanners = createAsyncThunk<
           )
       );
       const cartProductCount = data.cartProductCount;
-
       const homebanner = data.homebanner.map(
         (banner: any) =>
           new HomeBannerModel(banner._id, banner.id, banner.image, banner.title)
