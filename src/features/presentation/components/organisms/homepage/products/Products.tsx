@@ -8,7 +8,7 @@ type Product = {
   string?: number;
   offerPrice: number;
   subtitle: string;
-  title: string;
+  productName: string;
   _id: string;
   actualPrice: number;
   offerPercentage: number;
@@ -39,7 +39,7 @@ export default function Products({ products }: ProductsProps) {
               offerPrice={product.offerPrice}
               subtitle={product.subtitle}
               id={product._id ?? ""}
-              title={product.title}
+              title={product.productName}
               actualPrice={product.actualPrice}
               offerPercentage={product.offerPercentage}
             />

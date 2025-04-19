@@ -7,8 +7,8 @@ class ApiService {
     const localBaseUrl =
       process.env.REACT_APP_LOCAL_BASE_URL || "http://localhost:4000";
     const serverBaseUrl =
-      process.env.REACT_APP_SERVER_BASE_URL || "https://api.zibzo.youshah.com";
-
+      process.env.REACT_APP_SERVER_BASE_URL ||
+      "https://zibzo-server.onrender.com";
     this.apiUrl = isDevelopment ? localBaseUrl : serverBaseUrl;
 
     if (!this.apiUrl) {
@@ -18,7 +18,6 @@ class ApiService {
     }
   }
 
-  // Singleton Pattern to ensure only one instance
   public static getInstance(): ApiService {
     if (!ApiService.instance) {
       ApiService.instance = new ApiService();

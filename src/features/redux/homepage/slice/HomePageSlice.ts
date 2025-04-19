@@ -38,13 +38,13 @@ export const fetchProductsAndBanners = createAsyncThunk<
       const products = data.products.map(
         (product: any) =>
           new ProductsModel(
-            product.title,
-            product.subtitle,
+            product.productName,
+            product.brand,
             product.image,
             product._id,
             product.offerPrice,
             product.actualPrice,
-            product.offerPercentage
+            product.discount
           )
       );
       const cartProductCount = data.cartProductCount;
