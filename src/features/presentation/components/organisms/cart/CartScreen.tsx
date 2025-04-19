@@ -115,7 +115,7 @@ export default function CartScreen() {
                           offerPrice={product.offerPrice}
                           subtitle={product.subtitle}
                           id={product._id ?? ""}
-                          title={product.title}
+                          title={product.productName}
                           actualPrice={product.actualPrice}
                           offerPercentage={product.offerPercentage}
                           onClick={deleteCartProduct}

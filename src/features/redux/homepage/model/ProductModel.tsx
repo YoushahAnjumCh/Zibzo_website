@@ -1,5 +1,5 @@
 export class ProductsModel {
-  public title: string;
+  public productName: string;
   public _id: string;
   public subtitle: string;
   public image: string;
@@ -8,7 +8,7 @@ export class ProductsModel {
   public offerPercentage: number;
 
   constructor(
-    title: string,
+    productName: string,
     subtitle: string,
     image: string,
     _id: string,
@@ -16,7 +16,7 @@ export class ProductsModel {
     actualPrice: number,
     offerPercentage: number
   ) {
-    this.title = title;
+    this.productName = productName;
     this.subtitle = subtitle;
     this.image = image;
     this._id = _id;

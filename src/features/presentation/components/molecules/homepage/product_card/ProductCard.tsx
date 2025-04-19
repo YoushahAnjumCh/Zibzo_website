@@ -52,7 +52,7 @@ export default function ProductCard(props: ProductCardProps) {
       <CustomImage
         ImageSrc={props.image[0]}
         alt={props.title}
-        className="md:h-[190px] h-[120px] w-full object-cover rounded-t-lg"
+        className="md:h-[190px] h-[120px] w-full object-contain rounded-t-lg"
       />
 
       {/* Hover Overlay */}
